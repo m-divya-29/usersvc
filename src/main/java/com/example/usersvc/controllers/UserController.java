@@ -21,7 +21,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public User login(@RequestBody LoginRequestDTO dto) {
+    public User login(@Valid @RequestBody LoginRequestDTO dto) {
         return userService.loginUser(dto);
     }
 
@@ -31,7 +31,7 @@ public class UserController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<Void> logout(@RequestBody LogoutRequestDTO dto) {
+    public ResponseEntity<Void> logout(@Valid @RequestBody LogoutRequestDTO dto) {
         userService.logoutUser(dto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
