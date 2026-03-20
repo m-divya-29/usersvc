@@ -10,10 +10,14 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
+    Logger log = LoggerFactory.getLogger(UserController.class);
+
     private final UserService userService;
 
     public UserController(UserService userService) {
@@ -22,16 +26,19 @@ public class UserController {
 
     @PostMapping("/login")
     public User login(@Valid @RequestBody LoginRequestDTO dto) {
+        log.info("Login request received");
         return userService.loginUser(dto);
     }
 
-    @PostMapping("/signUp")
+    @PostMapping("/signup")
     public User signup(@Valid @RequestBody SignUpRequestDTO signUpRequestDTO) {
+        log.info("Signup request received");
         return userService.addNewUser(signUpRequestDTO);
     }
 
     @PostMapping("/logout")
     public ResponseEntity<Void> logout(@Valid @RequestBody LogoutRequestDTO dto) {
+        log.info("Logout request received");
         userService.logoutUser(dto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
