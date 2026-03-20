@@ -1,30 +1,38 @@
 package com.example.usersvc.controllers;
 
+import com.example.usersvc.dtos.LoginRequestDTO;
+import com.example.usersvc.dtos.LogoutRequestDTO;
+import com.example.usersvc.dtos.SignUpRequestDTO;
 import com.example.usersvc.models.User;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.usersvc.repositories.UserRepository;
+import com.example.usersvc.services.UserService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
-    public User login() {
-        // signup --
-        // no need to hash password
-        // store user as is in db
-        // no email verification
+    private final UserService userService;
 
-        // login -
-        // check user + password present in db and return user else throw error
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
-        // logout - delete token 200  OK
-        // else return 404
+    @PostMapping("/login")
+    public User login(@RequestBody LoginRequestDTO dto) {
+        return userService.loginUser(dto);
+    }
 
+    @PostMapping("/signUp")
+    public User signup(@Valid @RequestBody SignUpRequestDTO signUpRequestDTO) {
+        return userService.addNewUser(signUpRequestDTO);
+    }
 
-        return null;
-        // create loginrequestdto - email, password
-        // logoutrequestdto - token
-        // singuprequestdto - email, password, name,
-
-        // homework: login, signup, logout <ResponseEntity void>
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(@RequestBody LogoutRequestDTO dto) {
+        userService.logoutUser(dto);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
