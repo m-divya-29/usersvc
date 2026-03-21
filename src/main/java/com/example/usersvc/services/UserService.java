@@ -75,6 +75,14 @@ public class UserService {
 
     public void logoutUser(String tokenValue) {
         log.info("----Logout Request Received----");
-//        Optional<Token>
+        Optional<Token> tokenOptional = tokenRepository.findByValueAndIsDeleted(tokenValue, false);
+
+        if(tokenOptional.isEmpty()) return;
+
+        // For future reference do not deleted, just soft delete
+        tokenOptional.get().setDeleted(true);
+
+        tokenRepository.save(tokenOptional.get());
+
     }
 }

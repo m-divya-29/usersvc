@@ -9,5 +9,5 @@ import lombok.Setter;
 @Setter
 public class LogoutRequestDTO {
     @NotBlank(message = "Token cannot be blank!")
-    private String tokenValue;
+    private String token;
 }

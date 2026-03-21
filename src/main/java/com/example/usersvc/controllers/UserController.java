@@ -41,7 +41,7 @@ public class UserController {
     @PostMapping("/logout")
     public ResponseEntity<Void> logout(@Valid @RequestBody LogoutRequestDTO dto) {
         log.info("Logout request received");
-        userService.logoutUser(dto.getTokenValue());
+        userService.logoutUser(dto.getToken());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
