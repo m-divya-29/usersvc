@@ -17,4 +17,6 @@ public class Token extends BaseModel {
     // Many users can belong to 1 user
     @ManyToOne
     private User user;
+
+    private boolean isDeleted;
 }

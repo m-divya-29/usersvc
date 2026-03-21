@@ -73,12 +73,8 @@ public class UserService {
     }
 
 
-    public void logoutUser(LogoutRequestDTO dto) {
+    public void logoutUser(String tokenValue) {
         log.info("----Logout Request Received----");
-        if(tokenRepository.findByValue(dto.getTokenValue()).isPresent()) {
-            tokenRepository.deleteTokenByValue(dto.getTokenValue());
-        } else {
-            log.error("NO Token Found");
-        }
+//        Optional<Token>
     }
 }
