@@ -7,6 +7,7 @@ import com.example.usersvc.models.Token;
 import com.example.usersvc.models.User;
 import com.example.usersvc.repositories.TokenRepository;
 import com.example.usersvc.repositories.UserRepository;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cglib.core.Local;
@@ -64,6 +65,8 @@ public class UserService {
         token.setUser(userOptional.get());
         token.setExpiryAt(expiryDate);
 
+        // Generate a random 128 char token value
+        token.setValue(RandomStringUtils.randomAlphanumeric(128));
 
         tokenRepository.save(token);
         return token;
