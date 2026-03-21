@@ -32,5 +32,8 @@ FLUSH PRIVILEGES;
 3. Logout
    POST http://localhost:8080/users/logout
    {
-   "token": "i7P5jW13ADufGDqA4LKwF1syTYJBHTnPUyhDN19AfuAiP2b0q1I3eVwPMGICOOgu9FexXdpeH3lAIYX1Nkbhqmo70cqTlkOk2EbtZKuhhX1XukDQCcpkYMopUgRfUQds"
+   "token": "TokenValue"
    }
+4. Validate Token
+   GET http://localhost:8080/users/validate/{tokenvalue}
+   

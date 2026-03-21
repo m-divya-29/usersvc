@@ -85,4 +85,13 @@ public class UserService {
         tokenRepository.save(tokenOptional.get());
 
     }
+
+    public User validateToken(String token){
+        Optional<Token> tkn =
+        tokenRepository.findByValueAndIsDeletedAndExpiryAtGreaterThan(token, false, new Date());
+
+        if(tkn.isEmpty()) return null;
+
+        return tkn.get().getUser();
+    }
 }

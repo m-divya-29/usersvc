@@ -44,4 +44,10 @@ public class UserController {
         userService.logoutUser(dto.getToken());
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping("/validate/{token}")
+    public User validateToken(@PathVariable String token) {
+        log.info("Validate token received");
+        return userService.validateToken(token);
+    }
 }
