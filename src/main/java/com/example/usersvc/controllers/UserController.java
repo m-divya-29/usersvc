@@ -3,6 +3,7 @@ package com.example.usersvc.controllers;
 import com.example.usersvc.dtos.LoginRequestDTO;
 import com.example.usersvc.dtos.LogoutRequestDTO;
 import com.example.usersvc.dtos.SignUpRequestDTO;
+import com.example.usersvc.models.Token;
 import com.example.usersvc.models.User;
 import com.example.usersvc.repositories.UserRepository;
 import com.example.usersvc.services.UserService;
@@ -25,15 +26,16 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public User login(@Valid @RequestBody LoginRequestDTO dto) {
+    public Token login(@Valid @RequestBody LoginRequestDTO dto) {
         log.info("Login request received");
-        return userService.loginUser(dto);
+        return userService.loginUser(dto.getEmail(), dto.getPassword());
     }
 
     @PostMapping("/signup")
     public User signup(@Valid @RequestBody SignUpRequestDTO signUpRequestDTO) {
         log.info("Signup request received");
-        return userService.addNewUser(signUpRequestDTO);
+        return userService.addNewUser(signUpRequestDTO.getName(),
+                signUpRequestDTO.getEmail(), signUpRequestDTO.getPassword());
     }
 
     @PostMapping("/logout")

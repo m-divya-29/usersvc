@@ -3,8 +3,8 @@ package com.example.usersvc.repositories;
 import com.example.usersvc.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<User, Long> {
-    User findUserByEmailAndHashedPassword(String email, String password);
+import java.util.Optional;
 
-    User findUserByEmail(String email);
+public interface UserRepository extends JpaRepository<User, Long> {
+    Optional<User> findUserByEmail(String email);
 }
